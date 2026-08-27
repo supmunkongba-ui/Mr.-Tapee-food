@@ -3,132 +3,398 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mr. Tapee Food - รวมพิกัดสินค้าและโปรเด็ด</title>
+  <title>Mr. Tapee Food | รวมพิกัดของอร่อย & ดีลเด็ด</title>
+  
+  <!-- FontAwesome & Google Fonts -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- โค้ด Google Analytics (ถ้ามีรหัส G- ให้เปลี่ยนตรง G-XXXXXXXXXX ได้เลยครับ) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-family: 'Prompt', -apple-system, sans-serif;
     }
     body {
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      background: radial-gradient(circle at top, #1e293b, #0f172a);
       color: #f8fafc;
       min-height: 100vh;
       display: flex;
       justify-content: center;
-      padding: 40px 16px;
+      padding: 24px 14px 40px;
     }
     .container {
       width: 100%;
-      max-width: 480px;
+      max-width: 440px;
       text-align: center;
     }
+
+    /* Profile Section */
+    .profile-wrapper {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 12px;
+    }
     .profile-img {
-      width: 96px;
-      height: 96px;
+      width: 90px;
+      height: 90px;
       border-radius: 50%;
       border: 3px solid #f97316;
       object-fit: cover;
-      margin-bottom: 16px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+      box-shadow: 0 0 20px rgba(249, 115, 22, 0.4);
+    }
+    .verified-badge {
+      position: absolute;
+      bottom: 4px;
+      right: 4px;
+      background: #3b82f6;
+      color: #fff;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #0f172a;
     }
     h1 {
       font-size: 1.35rem;
       font-weight: 700;
-      margin-bottom: 8px;
+      letter-spacing: 0.2px;
+      margin-bottom: 4px;
       color: #ffffff;
     }
-    p.bio {
-      font-size: 0.9rem;
+    .tagline {
+      font-size: 0.85rem;
       color: #cbd5e1;
-      margin-bottom: 26px;
-      line-height: 1.4;
+      margin-bottom: 8px;
     }
+    .stats-bar {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      color: #fbbf24;
+      margin-bottom: 18px;
+    }
+
+    /* Flash Promo Banner */
+    .deal-banner {
+      background: linear-gradient(90deg, #b91c1c, #dc2626);
+      border-radius: 12px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 14px rgba(220, 38, 38, 0.3);
+      animation: pulse-glow 2s infinite;
+    }
+    .deal-banner span {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #fff;
+      text-align: left;
+    }
+    .deal-banner .deal-badge {
+      background: #fef08a;
+      color: #854d0e;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+
+    /* Section Title */
+    .section-title {
+      font-size: 0.88rem;
+      color: #94a3b8;
+      text-align: left;
+      margin: 16px 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 600;
+    }
+
+    /* Product Cards */
+    .product-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .product-card {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .product-card:active {
+      transform: scale(0.98);
+      border-color: #f97316;
+    }
+    .product-img {
+      width: 72px;
+      height: 72px;
+      border-radius: 10px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    .product-info {
+      flex: 1;
+      text-align: left;
+    }
+    .product-name {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #f8fafc;
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+    .product-tag {
+      display: inline-block;
+      font-size: 0.68rem;
+      background: rgba(249, 115, 22, 0.15);
+      color: #fb923c;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+    .product-action {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 2px;
+    }
+    .price-promo {
+      font-size: 0.75rem;
+      color: #10b981;
+      font-weight: 600;
+    }
+    .btn-view {
+      background: #f97316;
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    /* Platform Links */
     .links {
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 12px;
     }
     .link-card {
       display: flex;
       align-items: center;
-      padding: 14px 20px;
+      padding: 14px 18px;
       border-radius: 12px;
       text-decoration: none;
       color: #ffffff;
       font-weight: 600;
-      font-size: 1rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      transition: transform 0.1s ease;
+      font-size: 0.95rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      transition: transform 0.15s ease;
+      position: relative;
     }
     .link-card:active {
       transform: scale(0.98);
     }
     .link-card i {
-      font-size: 1.4rem;
-      margin-right: 14px;
-      width: 24px;
+      font-size: 1.3rem;
+      margin-right: 12px;
+      width: 22px;
       text-align: center;
     }
-    .link-text {
+    .link-content {
       flex-grow: 1;
       text-align: left;
     }
+    .link-subtext {
+      display: block;
+      font-size: 0.72rem;
+      opacity: 0.85;
+      font-weight: 400;
+    }
+    .link-arrow {
+      font-size: 0.8rem;
+      opacity: 0.7;
+    }
+
+    /* Platform Colors */
     .shopee {
-      background: linear-gradient(90deg, #ee4d2d 0%, #ff7337 100%);
+      background: linear-gradient(90deg, #ee4d2d 0%, #ff5722 100%);
     }
     .lazada {
-      background: linear-gradient(90deg, #0f146d 0%, #000083 50%, #f36f21 100%);
+      background: linear-gradient(90deg, #0f146d 0%, #000083 60%, #f36f21 100%);
     }
     .tiktok {
-      background: linear-gradient(90deg, #000000 0%, #222222 100%);
-      border: 1px solid #475569;
+      background: linear-gradient(90deg, #111827 0%, #000000 100%);
+      border: 1px solid #374151;
     }
-    .highlight {
-      background: linear-gradient(90deg, #ea580c 0%, #f97316 100%);
+
+    /* Visitor Counter & Footer */
+    .visitor-box {
+      margin-top: 28px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(15, 23, 42, 0.6);
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.75rem;
+      color: #94a3b8;
     }
     .footer-text {
-      margin-top: 36px;
-      font-size: 0.75rem;
+      margin-top: 14px;
+      font-size: 0.72rem;
       color: #64748b;
+      line-height: 1.5;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 10px rgba(220, 38, 38, 0.4); }
+      50% { transform: scale(1.01); box-shadow: 0 0 18px rgba(220, 38, 38, 0.7); }
     }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <img class="profile-img" src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=200&auto=format&fit=crop&q=80" alt="Mr. Tapee Food">
+    
+    <!-- Profile Section -->
+    <div class="profile-wrapper">
+      <img class="profile-img" src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=200&auto=format&fit=crop&q=80" alt="Mr. Tapee Food">
+      <div class="verified-badge"><i class="fa-solid fa-check"></i></div>
+    </div>
     
     <h1>Mr. Tapee Food</h1>
-    <p class="bio">รวมพิกัดของอร่อย ดีลเด็ด และเครื่องปรุงคัดสรร<br>เลือกสั่งซื้อผ่านแพลตฟอร์มโปรดของคุณได้เลย 👇</p>
+    <p class="tagline">รีวิวของกินรสเด็ด & ชี้เป้าโปรโมชั่นส่งตรงถึงบ้าน 😋</p>
+
+    <!-- Social Proof -->
+    <div class="stats-bar">
+      <span><i class="fa-solid fa-star"></i> 4.9/5 คะแนนรีวิว</span>
+      <span>•</span>
+      <span style="color:#38bdf8;"><i class="fa-solid fa-shield-halved"></i> การันตีร้านแท้ 100%</span>
+    </div>
+
+    <!-- Flash Deal Banner -->
+    <div class="deal-banner">
+      <span><i class="fa-solid fa-bolt"></i> โค้ดส่งฟรี + ส่วนลดประจำสัปดาห์</span>
+      <div class="deal-badge">สิทธิ์จำนวนจำกัด</div>
+    </div>
+
+    <!-- Product Recommendations -->
+    <div class="section-title">
+      <i class="fa-solid fa-fire" style="color: #f97316;"></i> เมนูป้ายยา & สินค้าสั่งซ้ำบ่อยที่สุด
+    </div>
+
+    <div class="product-grid">
+      <!-- สินค้า 1 -->
+      <a href="#" class="product-card" target="_blank" onclick="if(typeof gtag==='function'){gtag('event','click_item1',{'event_category':'affiliate'});}">
+        <img class="product-img" src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=160&auto=format&fit=crop&q=80" alt="น้ำพริก/ซอสสูตรเด็ด">
+        <div class="product-info">
+          <span class="product-tag">🔥 ขายดีอันดับ 1</span>
+          <div class="product-name">น้ำพริก / ซอสสูตรเด็ดตาปีฟู้ด (ต้นตำรับ)</div>
+          <div class="product-action">
+            <span class="price-promo">เช็คราคา Flash Sale</span>
+            <span class="btn-view">ดูพิกัด <i class="fa-solid fa-chevron-right"></i></span>
+          </div>
+        </div>
+      </a>
+
+      <!-- สินค้า 2 -->
+      <a href="#" class="product-card" target="_blank" onclick="if(typeof gtag==='function'){gtag('event','click_item2',{'event_category':'affiliate'});}">
+        <img class="product-img" src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=160&auto=format&fit=crop&q=80" alt="เซ็ตเครื่องปรุงรส">
+        <div class="product-info">
+          <span class="product-tag">✨ แนะนำต้องลอง</span>
+          <div class="product-name">เซ็ตเครื่องปรุงรส & วัตถุดิบเกรดพรีเมียม</div>
+          <div class="product-action">
+            <span class="price-promo">เก็บโค้ดลดเพิ่ม</span>
+            <span class="btn-view">ดูพิกัด <i class="fa-solid fa-chevron-right"></i></span>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <!-- Platform Links -->
+    <div class="section-title">
+      <i class="fa-solid fa-store" style="color: #38bdf8;"></i> เลือกช้อปผ่านแอปโปรดของคุณ
+    </div>
 
     <div class="links">
-      <a href="#" class="link-card highlight" target="_blank">
-        <i class="fa-solid fa-fire"></i>
-        <span class="link-text">🔥 เมนูแนะนำ & สินค้าขายดี</span>
-      </a>
-
-      <a href="#" class="link-card shopee" target="_blank">
-        <i class="fa-solid fa-bag-shopping"></i>
-        <span class="link-text">ช้อปโปรโมชั่นบน Shopee</span>
-      </a>
-
-      <a href="#" class="link-card lazada" target="_blank">
-        <i class="fa-solid fa-cart-shopping"></i>
-        <span class="link-text">ช้อปคุ้มค่าบน Lazada</span>
-      </a>
-
-      <a href="#" class="link-card tiktok" target="_blank">
+      <!-- TikTok -->
+      <a href="#" class="link-card tiktok" target="_blank" onclick="if(typeof gtag==='function'){gtag('event','click_tiktok',{'event_category':'affiliate'});}">
         <i class="fa-brands fa-tiktok"></i>
-        <span class="link-text">ดูคลิปรีวิว & ตะกร้า TikTok</span>
+        <div class="link-content">
+          <div>ดูรีวิวใน TikTok & ช้อปตะกร้าส้ม</div>
+          <span class="link-subtext">มีไลฟ์สดแจกโค้ดลดทุกวัน</span>
+        </div>
+        <i class="fa-solid fa-chevron-right link-arrow"></i>
       </a>
+
+      <!-- Shopee -->
+      <a href="#" class="link-card shopee" target="_blank" onclick="if(typeof gtag==='function'){gtag('event','click_shopee',{'event_category':'affiliate'});}">
+        <i class="fa-solid fa-bag-shopping"></i>
+        <div class="link-content">
+          <div>หน้ารวมสินค้าใน Shopee</div>
+          <span class="link-subtext">ส่งไว • มีโค้ดส่งฟรี & ส่วนลดร้านค้า</span>
+        </div>
+        <i class="fa-solid fa-chevron-right link-arrow"></i>
+      </a>
+
+      <!-- Lazada -->
+      <a href="#" class="link-card lazada" target="_blank" onclick="if(typeof gtag==='function'){gtag('event','click_lazada',{'event_category':'affiliate'});}">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <div class="link-content">
+          <div>หน้ารวมสินค้าใน Lazada LazMall</div>
+          <span class="link-subtext">รับประกันของแท้ • คูปองเงินคืน LazCoins</span>
+        </div>
+        <i class="fa-solid fa-chevron-right link-arrow"></i>
+      </a>
+    </div>
+
+    <!-- แถบนับจำนวนคนเข้าชม (Visitor Counter อัตโนมัติ) -->
+    <div class="visitor-box">
+      <i class="fa-regular fa-eye"></i>
+      <span>ผู้เข้าชมทั้งหมด:</span>
+      <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fsupmunkongba-ui.github.io%2FMr.-Tapee-food&count_bg=%23F97316&title_bg=%231E293B&icon=&icon_color=%23E7E7E7&title=Views&edge_flat=false" alt="Total Views" style="vertical-align: middle;">
     </div>
 
     <div class="footer-text">
+      กดลิงก์เพื่อรับสิทธิ์และคูปองส่วนลดพิเศษโดยตรง<br>
       © Mr. Tapee Food All Rights Reserved
     </div>
+
   </div>
 
 </body>
